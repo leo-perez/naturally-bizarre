@@ -1,0 +1,86 @@
+.menu
+  bottom 0
+  display inline-block
+  left 50%
+  list-style none
+  position absolute
+  text-align center
+  transform translateX(-50%)
+
+.menu-item
+  display inline-block
+  vertical-align middle
+
+.menu-link
+  display block
+  font-size 0
+  height 50px
+  margin auto
+  position relative
+  text-decoration none
+  width 50px
+
+  &:after
+    background #FFF
+    content ''
+    display block
+    height 5px
+    left 50%
+    position absolute
+    top 50%
+    transform translate(-50%, -50%)
+    width 5px
+
+  &:before
+    border 1px solid #FFF
+    bottom 50%
+    content ''
+    display block
+    left 50%
+    position absolute
+    right 50%
+    transition all .4s
+    top 50%
+
+  &.is-active,
+  &:hover
+    &:before
+      bottom 18px
+      left 18px
+      right 18px
+      top 18px
+
+.menu-link-text
+  background #000
+  bottom 100%
+  color #FFF
+  border 1px solid #FFF
+  display block
+  font-size 12px
+  left 50%
+  letter-spacing 1px
+  opacity 0
+  padding 8px 11px 8px 15px
+  position absolute
+  transform translateX(-50%) translateY(-25px)
+  transition opacity .4s, transform .4s, visibility .4s
+  visibility hidden
+  white-space nowrap
+
+  &:after
+    background #000
+    border solid #FFF
+    border-width 0 1px 1px 0
+    content ''
+    display block
+    height 10px
+    position absolute
+    left 50%
+    bottom -6px
+    transform translateX(-50%) rotate(45deg)
+    width 10px
+
+  .menu-link:hover &
+    opacity 1
+    transform translateX(-50%) translateY(0)
+    visibility visible
