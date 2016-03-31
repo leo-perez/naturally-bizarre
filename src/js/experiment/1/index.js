@@ -1,10 +1,7 @@
 /* global requestAnimationFrame */
 
-import randomInt from '../lib/randomInt'
-
-import Walker from './walker'
-import Experiments from '../experiments'
-
+const TITLE = 'Walkers'
+const DESCRIPTION = 'Traditional random walk made by 2,500 walkers spread in the screen.'
 const COLORS = [
   ['rgba(10, 215, 215, .2)', 'rgba(35, 40, 50, .2)', 'rgba(255, 45, 100, .2)', 'rgba(230, 230, 230, .2)'],
   ['rgba(255, 220, 0, .2)', 'rgba(245, 80, 140, .2)', 'rgba(160, 25, 165, .2)', 'rgba(70, 45, 70, .2)'],
@@ -13,18 +10,20 @@ const COLORS = [
   ['rgba(60, 30, 105, .2)', 'rgba(90, 60, 135, .2)', 'rgba(230, 90, 135, .2)', 'rgba(255, 170, 170, .2)']
 ]
 
+import { randomInt } from '../lib/random'
+
+import Experiments from '../classes/Experiments'
+import Walker from './Walker'
+
 export default class Experiment extends Experiments {
   constructor () {
-    super()
+    super(TITLE, DESCRIPTION)
 
     this.walkers = null
     this.walkersLength = 2500
 
     this.createWalkers()
     this.update()
-
-    window.addEventListener('click', () => this.click())
-    window.addEventListener('resize', () => this.resize())
   }
 
   createWalkers () {
@@ -54,7 +53,7 @@ export default class Experiment extends Experiments {
   }
 
   click () {
-    super.clear()
+    super.click()
 
     this.createWalkers()
   }

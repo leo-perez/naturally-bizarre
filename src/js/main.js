@@ -1,19 +1,21 @@
+/* global location */
+
 import 'babel-polyfill'
 
 import First from './experiment/1/index'
+import Second from './experiment/2/index'
 
-/**
- * The following part of code is extremely poor.
- */
 const experiments = [
   First,
-  First
+  Second
 ]
 
-let experiment = new First()
-const experimentToggle = document.querySelectorAll('.js-experiment-toggle')
+const experimentsNumber = (location.hash) ? parseInt(location.hash.replace('#', ''), 10) - 1 : 0
+const experimentsToggle = document.querySelectorAll('.js-experiment-toggle')
 
-Array.from(experimentToggle).forEach((link, index) => {
+let experiment = new experiments[experimentsNumber]()
+
+Array.from(experimentsToggle).forEach((link, index) => {
   link.addEventListener('click', () => {
     experiment.destroy()
 

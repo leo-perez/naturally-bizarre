@@ -1,10 +1,13 @@
 import Stats from 'stats-js'
 
 export default class Experiments {
-  constructor () {
+  constructor (title, description) {
     this.stats = null
 
     this.wrapper = null
+
+    this.title = title
+    this.description = description
 
     this.canvas = null
     this.context = null
@@ -14,11 +17,32 @@ export default class Experiments {
     this.createCanvas()
     this.createContext()
 
-    document.body.appendChild(this.wrapper)
+    this.wrapper.addEventListener('click', () => this.click())
+    this.wrapper.addEventListener('resize', () => this.resize())
   }
 
   createWrapper () {
-    this.wrapper = document.createElement('div')
+    const wrapper = document.createElement('div')
+    const wrapperInfo = document.createElement('div')
+    const wrapperTitle = document.createElement('h2')
+    const wrapperDescription = document.createElement('p')
+
+    wrapper.classList.add('experiment')
+    wrapper.appendChild(wrapperInfo)
+
+    wrapperInfo.appendChild(wrapperTitle)
+    wrapperInfo.appendChild(wrapperDescription)
+    wrapperInfo.classList.add('experiment-info')
+
+    wrapperTitle.innerHTML = this.title
+    wrapperTitle.classList.add('experiment-info-title')
+
+    wrapperDescription.innerHTML = this.description
+    wrapperDescription.classList.add('experiment-info-desc')
+
+    document.body.appendChild(wrapper)
+
+    this.wrapper = wrapper
   }
 
   createStats () {
@@ -55,7 +79,7 @@ export default class Experiments {
     this.context.fillRect(0, 0, window.innerWidth, window.innerHeight)
   }
 
-  clear () {
+  click () {
     this.context.clearRect(0, 0, window.innerWidth, window.innerHeight)
   }
 
@@ -65,7 +89,16 @@ export default class Experiments {
   }
 
   destroy () {
+    this.context = null
+
+    this.canvas.parentNode.removeChild(this.canvas)
+    this.canvas = null
+
+    this.stats.domElement.parentNode.removeChild(this.stats.domElement)
+    this.stats = null
+
     this.wrapper.innerHTML = ''
     this.wrapper.parentNode.removeChild(this.wrapper)
+    this.wrapper = null
   }
 }

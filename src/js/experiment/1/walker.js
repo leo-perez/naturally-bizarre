@@ -1,4 +1,4 @@
-import randomInt from '../lib/randomInt'
+import { randomInt } from '../lib/random'
 
 export default class Walker {
   constructor (color, x, y) {
