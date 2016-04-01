@@ -4,10 +4,12 @@ import 'babel-polyfill'
 
 import First from './experiment/1/index'
 import Second from './experiment/2/index'
+import Third from './experiment/3/index'
 
 const experiments = [
   First,
-  Second
+  Second,
+  Third
 ]
 
 const experimentsNumber = (location.hash) ? parseInt(location.hash.replace('#', ''), 10) - 1 : 0

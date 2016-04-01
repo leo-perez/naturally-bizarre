@@ -14,7 +14,7 @@ export default class Experiment extends Experiments {
     super(TITLE, DESCRIPTION)
 
     this.circles = null
-    this.circlesLength = 250
+    this.circlesLength = 500
 
     this.createCircles()
     this.update()
@@ -23,8 +23,8 @@ export default class Experiment extends Experiments {
   createCircle () {
     const radius = 10 + Math.abs(randomNormalized() * 10)
     const color = COLORS[randomInt(0, COLORS.length)]
-    const x = this.x + (randomNormalized() * 100)
-    const y = this.y + (randomNormalized() * 100)
+    const x = this.x + (randomNormalized() * 175)
+    const y = this.y + (randomNormalized() * 175)
 
     this.circles.push(new Circle(radius, '#000', color, x, y))
   }

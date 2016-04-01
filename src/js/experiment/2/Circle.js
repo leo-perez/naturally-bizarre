@@ -13,7 +13,7 @@ export default class Circle {
 
     this.opacity = 0
 
-    this.lerp = randomArbitrary(0.01, 0.1)
+    this.lerp = randomArbitrary(0.05, 0.1)
   }
 
   move (x, y) {
