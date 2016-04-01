@@ -11,10 +11,16 @@ export default class Circle {
     this.x = x
     this.y = y
 
+    this.opacity = 0
+
     this.lerp = randomArbitrary(0.01, 0.1)
   }
 
   move (x, y) {
+    if (this.opacity < 1) {
+      this.opacity = this.opacity + 0.05
+    }
+
     this.radius = lerp(this.radius, 0, this.lerp)
 
     this.x = lerp(this.x, x, this.lerp)
@@ -25,6 +31,7 @@ export default class Circle {
 
   draw (context) {
     context.lineWidth = 2
+    context.globalAlpha = this.opacity
     context.fillStyle = this.fill
     context.strokeStyle = this.stroke
 
@@ -34,5 +41,7 @@ export default class Circle {
 
     context.fill()
     context.stroke()
+
+    context.globalAlpha = 1
   }
 }

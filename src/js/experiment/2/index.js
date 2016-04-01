@@ -21,7 +21,7 @@ export default class Experiment extends Experiments {
   }
 
   createCircle () {
-    const radius = 5 + Math.abs(randomNormalized() * 5)
+    const radius = 10 + Math.abs(randomNormalized() * 10)
     const color = COLORS[randomInt(0, COLORS.length)]
     const x = this.x + (randomNormalized() * 100)
     const y = this.y + (randomNormalized() * 100)
