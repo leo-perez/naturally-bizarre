@@ -12,11 +12,15 @@ export default class Experiments {
     this.canvas = null
     this.context = null
 
+    this.x = window.innerWidth / 2
+    this.y = window.innerHeight / 2
+
     this.createWrapper()
     this.createStats()
     this.createCanvas()
     this.createContext()
 
+    this.wrapper.addEventListener('mousemove', (e) => this.mousemove(e))
     this.wrapper.addEventListener('click', () => this.click())
     this.wrapper.addEventListener('resize', () => this.resize())
   }
@@ -81,6 +85,11 @@ export default class Experiments {
 
   click () {
     this.context.clearRect(0, 0, window.innerWidth, window.innerHeight)
+  }
+
+  mousemove (e) {
+    this.x = e.pageX
+    this.y = e.pageY
   }
 
   resize () {

@@ -1,9 +1,10 @@
 /* global requestAnimationFrame */
 
-const TITLE = 'Normal Distribution'
-const DESCRIPTION = 'Spray based in the mouse position and normal distribution.'
+const TITLE = 'Distribution'
+const DESCRIPTION = 'Normal distribution of 250 circles with linear interpolation in position and radius.'
+const COLORS = ['#F38181', '#FCE38A', '#EAFFD0', '#95E1D3']
 
-import { randomNormalized } from '../lib/random'
+import { randomInt, randomNormalized } from '../lib/random'
 
 import Experiments from '../classes/Experiments'
 import Circle from './Circle.js'
@@ -13,32 +14,30 @@ export default class Experiment extends Experiments {
     super(TITLE, DESCRIPTION)
 
     this.circles = null
-    this.circlesLength = 500
-
-    this.clicked = false
-
-    this.x = window.innerWidth / 2
-    this.y = window.innerHeight / 2
+    this.circlesLength = 250
 
     this.createCircles()
     this.update()
+  }
 
-    this.wrapper.addEventListener('mousemove', (e) => this.mousemove(e))
+  createCircle () {
+    const radius = 5 + Math.abs(randomNormalized() * 5)
+    const color = COLORS[randomInt(0, COLORS.length)]
+    const x = this.x + (randomNormalized() * 100)
+    const y = this.y + (randomNormalized() * 100)
+
+    this.circles.push(new Circle(radius, '#000', color, x, y))
+  }
+
+  destroyCircle (index) {
+    this.circles.splice(index, 1)
   }
 
   createCircles () {
     this.circles = []
 
     for (let i = 0, length = this.circlesLength; i <= length; i++) {
-      const circle = new Circle(
-        5 + Math.abs(randomNormalized() * 5),
-        '#FFF',
-        '#FFF',
-        this.x,
-        this.y
-      )
-
-      this.circles.push(circle)
+      this.createCircle()
     }
   }
 
@@ -48,9 +47,14 @@ export default class Experiment extends Experiments {
     this.context.fillStyle = '#000'
     this.context.fillRect(0, 0, window.innerWidth, window.innerHeight)
 
-    this.circles.forEach((circle) => {
-      circle.move(this.x + circle.spreadX, this.y + circle.spreadY)
+    this.circles.forEach((circle, index) => {
+      circle.move(this.x, this.y)
       circle.draw(this.context)
+
+      if (!circle.alive) {
+        this.destroyCircle(index)
+        this.createCircle()
+      }
     })
 
     this.stats.end()
@@ -58,18 +62,15 @@ export default class Experiment extends Experiments {
     requestAnimationFrame(this.update.bind(this))
   }
 
-  mousemove (e) {
-    this.x = e.pageX
-    this.y = e.pageY
-  }
-
   click () {
     super.click()
 
-    this.clicked = !this.clicked
+    this.createCircles()
   }
 
   resize () {
     super.resize()
+
+    this.createCircles()
   }
 }

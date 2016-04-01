@@ -1,5 +1,5 @@
 import { lerp } from '../lib/lerp'
-import { randomNormalized } from '../lib/random'
+import { randomArbitrary } from '../lib/random'
 
 export default class Circle {
   constructor (radius, fill, stroke, x, y) {
@@ -8,21 +8,23 @@ export default class Circle {
     this.fill = fill
     this.stroke = stroke
 
-    this.spreadX = (randomNormalized() * 100)
-    this.spreadY = (randomNormalized() * 100)
+    this.x = x
+    this.y = y
 
-    this.x = x + this.spreadX
-    this.y = y + this.spreadY
+    this.lerp = randomArbitrary(0.01, 0.1)
   }
 
   move (x, y) {
-    this.x = lerp(this.x, x, 0.1)
-    this.y = lerp(this.y, y, 0.1)
+    this.radius = lerp(this.radius, 0, this.lerp)
+
+    this.x = lerp(this.x, x, this.lerp)
+    this.y = lerp(this.y, y, this.lerp)
+
+    this.alive = this.radius > 0.01
   }
 
   draw (context) {
-    context.lineWidth = 0
-    context.globalAlpha = 0.1
+    context.lineWidth = 2
     context.fillStyle = this.fill
     context.strokeStyle = this.stroke
 
@@ -32,7 +34,5 @@ export default class Circle {
 
     context.fill()
     context.stroke()
-
-    context.globalAlpha = 1
   }
 }
