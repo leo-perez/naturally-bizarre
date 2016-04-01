@@ -22,7 +22,8 @@ export default class Experiments {
 
     this.wrapper.addEventListener('mousemove', (e) => this.mousemove(e))
     this.wrapper.addEventListener('click', () => this.click())
-    this.wrapper.addEventListener('resize', () => this.resize())
+
+    window.addEventListener('resize', () => this.resize())
   }
 
   createWrapper () {
