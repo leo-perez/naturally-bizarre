@@ -3,8 +3,7 @@
 const TITLE = 'Noise'
 const DESCRIPTION = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
 
-import { randomInt, randomNormalized } from '../lib/random'
-
+import SimplexNoise from 'simplex-noise'
 import Experiments from '../classes/Experiments'
 
 export default class Experiment extends Experiments {

@@ -21,28 +21,26 @@ export default class Experiment extends Experiments {
 
     this.walkers = null
     this.walkersLength = 2500
+    this.walkersColor = null
 
     this.createWalkers()
     this.update()
   }
 
   createWalker (number) {
-    const walker = new Walker(
-      COLORS[number][randomInt(0, 3)],
-      randomInt(0, window.innerWidth),
-      randomInt(0, window.innerHeight)
-    )
+    const color = COLORS[number][randomInt(0, 3)]
+    const x = randomInt(0, window.innerWidth)
+    const y = randomInt(0, window.innerHeight)
 
-    this.walkers.push(walker)
+    this.walkers.push(new Walker(color, x, y))
   }
 
   createWalkers () {
     this.walkers = []
-
-    const number = randomInt(0, 4)
+    this.walkersColor = randomInt(0, COLORS.length - 1)
 
     for (let i = 0, length = this.walkersLength; i <= length; i++) {
-      this.createWalker(number)
+      this.createWalker(this.walkersColor)
     }
   }
 

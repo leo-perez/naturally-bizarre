@@ -1,8 +1,14 @@
 /* global requestAnimationFrame */
 
 const TITLE = 'Distribution'
-const DESCRIPTION = 'Normal distribution of 250 circles with linear interpolation in position and radius.'
-const COLORS = ['#F38181', '#FCE38A', '#EAFFD0', '#95E1D3']
+const DESCRIPTION = 'Normal distribution of 500 circles with linear interpolation in position and radius.'
+const COLORS = [
+  ['#0AD7D7', '#232832', '#FF2D64', '#E6E6E6'],
+  ['#FFDC00', '#F5508C', '#9F19A4', '#462D46'],
+  ['#FA5555', '#F5FA78', '#8CEB8C', '#2D7D91'],
+  ['#004182', '#0E8CF0', '#FAFFA4', '#FF4B69'],
+  ['#3C1E69', '#5A3C87', '#E65A87', '#FAA']
+]
 
 import { randomInt, randomNormalized } from '../lib/random'
 
@@ -15,18 +21,19 @@ export default class Experiment extends Experiments {
 
     this.circles = null
     this.circlesLength = 500
+    this.circlesColor = null
 
     this.createCircles()
     this.update()
   }
 
-  createCircle () {
+  createCircle (number) {
     const radius = 10 + Math.abs(randomNormalized() * 10)
-    const color = COLORS[randomInt(0, COLORS.length)]
-    const x = this.x + (randomNormalized() * 175)
-    const y = this.y + (randomNormalized() * 175)
+    const stroke = COLORS[number][randomInt(0, COLORS.length)]
+    const x = this.x + (randomNormalized() * 200)
+    const y = this.y + (randomNormalized() * 200)
 
-    this.circles.push(new Circle(radius, '#000', color, x, y))
+    this.circles.push(new Circle(radius, '#000', stroke, x, y))
   }
 
   destroyCircle (index) {
@@ -35,9 +42,10 @@ export default class Experiment extends Experiments {
 
   createCircles () {
     this.circles = []
+    this.circlesColor = randomInt(0, COLORS.length - 1)
 
     for (let i = 0, length = this.circlesLength; i <= length; i++) {
-      this.createCircle()
+      this.createCircle(this.circlesColor)
     }
   }
 
@@ -53,7 +61,7 @@ export default class Experiment extends Experiments {
 
       if (!circle.alive) {
         this.destroyCircle(index)
-        this.createCircle()
+        this.createCircle(this.circlesColor)
       }
     })
 

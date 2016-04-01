@@ -22,6 +22,8 @@ export default class Walker {
   }
 
   draw (context) {
+    context.globalCompositeOperation = 'lighter'
+
     context.beginPath()
     context.moveTo(this.x, this.y)
 

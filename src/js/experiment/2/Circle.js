@@ -18,7 +18,7 @@ export default class Circle {
 
   move (x, y) {
     if (this.opacity < 1) {
-      this.opacity = this.opacity + 0.05
+      this.opacity = this.opacity + 0.1
     }
 
     this.radius = lerp(this.radius, 0, this.lerp)
@@ -31,7 +31,10 @@ export default class Circle {
 
   draw (context) {
     context.lineWidth = 2
+
     context.globalAlpha = this.opacity
+    context.globalCompositeOperation = 'lighter'
+
     context.fillStyle = this.fill
     context.strokeStyle = this.stroke
 
@@ -42,6 +45,7 @@ export default class Circle {
     context.fill()
     context.stroke()
 
-    context.globalAlpha = 1
+    context.globalAlpha = 0.05
+    context.globalCompositeOperation = 'source-over'
   }
 }
