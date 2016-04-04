@@ -1,6 +1,6 @@
 /* global requestAnimationFrame */
 
-const TITLE = 'Walkers'
+const TITLE = 'Roots'
 const DESCRIPTION = 'Traditional random walk made by 2,500 walkers spread in the screen.'
 const COLORS = [
   ['rgba(10, 215, 215, .2)', 'rgba(35, 40, 50, .2)', 'rgba(255, 45, 100, .2)', 'rgba(230, 230, 230, .2)'],
@@ -27,8 +27,8 @@ export default class Experiment extends Experiments {
     this.update()
   }
 
-  createWalker (number) {
-    const color = COLORS[number][randomInt(0, 3)]
+  createWalker () {
+    const color = COLORS[this.walkersColor][randomInt(0, 3)]
     const x = randomInt(0, window.innerWidth)
     const y = randomInt(0, window.innerHeight)
 
@@ -40,7 +40,7 @@ export default class Experiment extends Experiments {
     this.walkersColor = randomInt(0, COLORS.length - 1)
 
     for (let i = 0, length = this.walkersLength; i <= length; i++) {
-      this.createWalker(this.walkersColor)
+      this.createWalker()
     }
   }
 

@@ -1,5 +1,7 @@
 import Stats from 'stats-js'
 
+import Vector from './Vector'
+
 export default class Experiments {
   constructor (title, description) {
     this.stats = null
@@ -12,8 +14,8 @@ export default class Experiments {
     this.canvas = null
     this.context = null
 
-    this.x = window.innerWidth / 2
-    this.y = window.innerHeight / 2
+    this.center = new Vector(window.innerWidth / 2, window.innerHeight / 2)
+    this.mouse = new Vector(window.innerWidth / 2, window.innerHeight / 2)
 
     this.createWrapper()
     this.createStats()
@@ -89,13 +91,14 @@ export default class Experiments {
   }
 
   mousemove (e) {
-    this.x = e.pageX
-    this.y = e.pageY
+    this.mouse.set(e.pageX, e.pageY)
   }
 
   resize () {
     this.canvas.width = window.innerWidth
     this.canvas.height = window.innerHeight
+
+    this.center = new Vector(window.innerWidth / 2, window.innerHeight / 2)
   }
 
   destroy () {

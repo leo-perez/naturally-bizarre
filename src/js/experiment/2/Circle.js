@@ -2,10 +2,10 @@ import { lerp } from '../lib/lerp'
 import { randomArbitrary } from '../lib/random'
 
 export default class Circle {
-  constructor (radius, fill, stroke, x, y) {
+  constructor (radius, stroke, x, y) {
     this.radius = radius
 
-    this.fill = fill
+    this.fill = '#000'
     this.stroke = stroke
 
     this.x = x

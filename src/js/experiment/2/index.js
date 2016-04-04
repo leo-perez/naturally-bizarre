@@ -1,6 +1,6 @@
 /* global requestAnimationFrame */
 
-const TITLE = 'Distribution'
+const TITLE = 'Neon'
 const DESCRIPTION = 'Normal distribution of 500 circles with linear interpolation in position and radius.'
 const COLORS = [
   ['#0AD7D7', '#232832', '#FF2D64', '#E6E6E6'],
@@ -13,7 +13,7 @@ const COLORS = [
 import { randomInt, randomNormalized } from '../lib/random'
 
 import Experiments from '../classes/Experiments'
-import Circle from './Circle.js'
+import Circle from './Circle'
 
 export default class Experiment extends Experiments {
   constructor () {
@@ -27,13 +27,13 @@ export default class Experiment extends Experiments {
     this.update()
   }
 
-  createCircle (number) {
+  createCircle () {
     const radius = 10 + Math.abs(randomNormalized() * 10)
-    const stroke = COLORS[number][randomInt(0, COLORS.length)]
-    const x = this.x + (randomNormalized() * 200)
-    const y = this.y + (randomNormalized() * 200)
+    const stroke = COLORS[this.circlesColor][randomInt(0, COLORS.length - 1)]
+    const x = this.mouse.x + (randomNormalized() * 200)
+    const y = this.mouse.y + (randomNormalized() * 200)
 
-    this.circles.push(new Circle(radius, '#000', stroke, x, y))
+    this.circles.push(new Circle(radius, stroke, x, y))
   }
 
   destroyCircle (index) {
@@ -45,7 +45,7 @@ export default class Experiment extends Experiments {
     this.circlesColor = randomInt(0, COLORS.length - 1)
 
     for (let i = 0, length = this.circlesLength; i <= length; i++) {
-      this.createCircle(this.circlesColor)
+      this.createCircle()
     }
   }
 
@@ -56,12 +56,12 @@ export default class Experiment extends Experiments {
     this.context.fillRect(0, 0, window.innerWidth, window.innerHeight)
 
     this.circles.forEach((circle, index) => {
-      circle.move(this.x, this.y)
+      circle.move(this.mouse.x, this.mouse.y)
       circle.draw(this.context)
 
       if (!circle.alive) {
         this.destroyCircle(index)
-        this.createCircle(this.circlesColor)
+        this.createCircle()
       }
     })
 

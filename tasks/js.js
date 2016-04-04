@@ -12,6 +12,8 @@ const buffer = require('vinyl-buffer')
 
 const util = require('gulp-util')
 
+const connect = require('gulp-connect')
+
 gulp.task('js', () => {
   var bundler = browserify({
     cache: {},
@@ -30,6 +32,7 @@ gulp.task('js', () => {
       .pipe(buffer())
       .pipe(global.isWatching ? util.noop() : uglify())
       .pipe(gulp.dest(`./${pkg.folders.dist}/js`))
+      .pipe(connect.reload())
   }
 
   if (global.isWatching) {
