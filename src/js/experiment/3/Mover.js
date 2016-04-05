@@ -1,12 +1,12 @@
 export default class Mover {
-  constructor (radius, stroke, location, velocity) {
+  constructor (radius, stroke, location, velocity, acceleration) {
     this.radius = radius
 
     this.stroke = stroke
 
     this.location = location
-
     this.velocity = velocity
+    this.acceleration = acceleration
   }
 
   check () {
@@ -24,6 +24,7 @@ export default class Mover {
   }
 
   update () {
+    this.velocity.add(this.acceleration)
     this.location.add(this.velocity)
   }
 

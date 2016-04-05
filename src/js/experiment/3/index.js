@@ -31,9 +31,10 @@ export default class Experiment extends Experiments {
     const radius = randomInt(4, 22)
     const color = COLORS[this.moversColor][randomInt(0, COLORS.length - 1)]
     const location = new Vector(randomInt(0, window.innerWidth), randomInt(0, window.innerHeight))
-    const velocity = new Vector(randomArbitrary(-0.25, 0.25), randomArbitrary(-0.25, 0.25))
+    const velocity = new Vector(0, 0)
+    const acceleration = new Vector(-0.001, 0.01)
 
-    this.movers.push(new Mover(radius, color, location, velocity))
+    this.movers.push(new Mover(radius, color, location, velocity, acceleration))
   }
 
   createMovers () {
