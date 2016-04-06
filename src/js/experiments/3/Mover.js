@@ -55,7 +55,7 @@ export default class Mover {
 
     context.stroke()
 
-    context.globalAlpha = 0.1
+    context.globalAlpha = 0.3
     context.globalCompositeOperation = 'source-over'
   }
 }

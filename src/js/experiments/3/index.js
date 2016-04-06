@@ -22,7 +22,7 @@ export default class Experiment extends Experiments {
     this.movers = null
     this.moversLength = 500
     this.moversColor = null
-    this.moversMultiply = 0.5
+    this.moversMultiply = 0.75
 
     this.createMovers()
     this.update()
