@@ -1,12 +1,16 @@
-export default class Mover {
-  constructor (radius, stroke, location, velocity, acceleration) {
-    this.radius = radius
+import { randomInt } from '../../lib/random'
 
+import Vector from '../../classes/Vector'
+
+export default class Mover {
+  constructor (radius, stroke, location) {
+    this.radius = radius
     this.stroke = stroke
 
-    this.location = location
-    this.velocity = velocity
-    this.acceleration = acceleration
+    this.location = new Vector(randomInt(0, window.innerWidth), randomInt(0, window.innerHeight))
+    this.velocity = new Vector(0, 0)
+    this.acceleration = new Vector(0, 0)
+    this.direction = new Vector(0, 0)
   }
 
   check () {
@@ -23,15 +27,23 @@ export default class Mover {
     }
   }
 
-  update () {
+  update (mouse, multiplier) {
+    this.direction = Vector.sub(mouse, this.location)
+    this.direction.normalize()
+    this.direction.mult(multiplier)
+
+    this.acceleration = this.direction
+
     this.velocity.add(this.acceleration)
+    this.velocity.limit(15)
+
     this.location.add(this.velocity)
   }
 
   draw (context) {
     this.check()
-    this.update()
 
+    context.globalAlpha = 0.75
     context.globalCompositeOperation = 'lighter'
 
     context.lineWidth = 3
@@ -43,6 +55,7 @@ export default class Mover {
 
     context.stroke()
 
+    context.globalAlpha = 0.1
     context.globalCompositeOperation = 'source-over'
   }
 }

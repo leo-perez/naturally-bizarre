@@ -10,9 +10,9 @@ const COLORS = [
   ['#3C1E69', '#5A3C87', '#E65A87', '#FAA']
 ]
 
-import { randomInt, randomNormalized } from '../lib/random'
+import { randomInt, randomNormalized } from '../../lib/random'
 
-import Experiments from '../classes/Experiments'
+import Experiments from '../../classes/Experiments'
 import Circle from './Circle'
 
 export default class Experiment extends Experiments {
@@ -70,8 +70,8 @@ export default class Experiment extends Experiments {
     requestAnimationFrame(this.update.bind(this))
   }
 
-  click () {
-    super.click()
+  dblclick () {
+    super.dblclick()
 
     this.createCircles()
   }

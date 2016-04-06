@@ -1,4 +1,5 @@
 import Stats from 'stats-js'
+import Vector from './Vector'
 
 export default class Experiments {
   constructor (title, description) {
@@ -12,22 +13,18 @@ export default class Experiments {
     this.canvas = null
     this.context = null
 
-    this.center = {
-      x: window.innerWidth / 2,
-      y: window.innerHeight / 2
-    }
-
-    this.mouse = {
-      x: window.innerWidth / 2,
-      y: window.innerHeight / 2
-    }
+    this.center = new Vector(window.innerWidth / 2, window.innerHeight / 2)
+    this.mouse = new Vector(window.innerWidth / 2, window.innerHeight / 2)
 
     this.createWrapper()
     this.createStats()
     this.createCanvas()
     this.createContext()
 
+    this.wrapper.addEventListener('mousedown', (e) => this.mousedown(e))
     this.wrapper.addEventListener('mousemove', (e) => this.mousemove(e))
+    this.wrapper.addEventListener('mouseup', (e) => this.mouseup(e))
+    this.wrapper.addEventListener('dblclick', () => this.dblclick())
     this.wrapper.addEventListener('click', () => this.click())
 
     window.addEventListener('resize', () => this.resize())
@@ -91,25 +88,31 @@ export default class Experiments {
     this.context.fillRect(0, 0, window.innerWidth, window.innerHeight)
   }
 
-  click () {
+  dblclick () {
     this.context.clearRect(0, 0, window.innerWidth, window.innerHeight)
   }
 
+  click () {
+
+  }
+
+  mousedown (e) {
+
+  }
+
   mousemove (e) {
-    this.mouse = {
-      x: e.pageX,
-      y: e.pageY
-    }
+    this.mouse.set(e.pageX, e.pageY)
+  }
+
+  mouseup (e) {
+
   }
 
   resize () {
     this.canvas.width = window.innerWidth
     this.canvas.height = window.innerHeight
 
-    this.center = {
-      x: window.innerWidth / 2,
-      y: window.innerHeight / 2
-    }
+    this.center.set(window.innerWidth / 2, window.innerHeight / 2)
   }
 
   destroy () {

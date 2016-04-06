@@ -1,5 +1,5 @@
-import { lerp } from '../lib/lerp'
-import { randomArbitrary } from '../lib/random'
+import { lerp } from '../../lib/lerp'
+import { randomArbitrary } from '../../lib/random'
 
 export default class Circle {
   constructor (radius, stroke, x, y) {

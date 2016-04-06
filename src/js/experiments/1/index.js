@@ -1,6 +1,6 @@
 /* global requestAnimationFrame */
 
-const TITLE = 'Roots'
+const TITLE = 'Root'
 const DESCRIPTION = 'Traditional random walk made by 2,500 walkers spread in the screen.'
 const COLORS = [
   ['rgba(10, 215, 215, .2)', 'rgba(35, 40, 50, .2)', 'rgba(255, 45, 100, .2)', 'rgba(230, 230, 230, .2)'],
@@ -10,9 +10,9 @@ const COLORS = [
   ['rgba(60, 30, 105, .2)', 'rgba(90, 60, 135, .2)', 'rgba(230, 90, 135, .2)', 'rgba(255, 170, 170, .2)']
 ]
 
-import { randomInt } from '../lib/random'
+import { randomInt } from '../../lib/random'
 
-import Experiments from '../classes/Experiments'
+import Experiments from '../../classes/Experiments'
 import Walker from './Walker'
 
 export default class Experiment extends Experiments {
@@ -54,8 +54,8 @@ export default class Experiment extends Experiments {
     requestAnimationFrame(this.update.bind(this))
   }
 
-  click () {
-    super.click()
+  dblclick () {
+    super.dblclick()
 
     this.createWalkers()
   }

@@ -2,9 +2,9 @@
 
 import 'babel-polyfill'
 
-import First from './experiment/1/index'
-import Second from './experiment/2/index'
-import Third from './experiment/3/index'
+import First from './experiments/1/index'
+import Second from './experiments/2/index'
+import Third from './experiments/3/index'
 
 const experiments = [
   First,

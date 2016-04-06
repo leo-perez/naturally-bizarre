@@ -1,18 +1,18 @@
 /* global requestAnimationFrame */
 
-const TITLE = 'Gravity'
-const DESCRIPTION = 'It\'s still under construction.'
+const TITLE = 'Atom'
+const DESCRIPTION = 'Orbit of 500 circles using vectors of velocity and acceleration to define their position.'
 const COLORS = [
   ['#0AD7D7', '#232832', '#FF2D64', '#E6E6E6'],
   ['#FFDC00', '#F5508C', '#9F19A4', '#462D46'],
   ['#FA5555', '#F5FA78', '#8CEB8C', '#2D7D91'],
-  ['#004182', '#0E8CF0', '#FAFFA4', '#FF4B69']
+  ['#004182', '#0E8CF0', '#FAFFA4', '#FF4B69'],
+  ['#3C1E69', '#5A3C87', '#E65A87', '#FAA']
 ]
 
-import { randomInt, randomArbitrary } from '../lib/random'
+import { randomInt } from '../../lib/random'
 
-import Experiments from '../classes/Experiments'
-import Vector from '../classes/Vector'
+import Experiments from '../../classes/Experiments'
 import Mover from './Mover'
 
 export default class Experiment extends Experiments {
@@ -22,19 +22,17 @@ export default class Experiment extends Experiments {
     this.movers = null
     this.moversLength = 500
     this.moversColor = null
+    this.moversMultiply = 0.5
 
     this.createMovers()
     this.update()
   }
 
   createMover (index) {
-    const radius = randomInt(4, 22)
+    const radius = randomInt(1, 5)
     const color = COLORS[this.moversColor][randomInt(0, COLORS.length - 1)]
-    const location = new Vector(randomInt(0, window.innerWidth), randomInt(0, window.innerHeight))
-    const velocity = new Vector(0, 0)
-    const acceleration = new Vector(-0.001, 0.01)
 
-    this.movers.push(new Mover(radius, color, location, velocity, acceleration))
+    this.movers.push(new Mover(radius, color))
   }
 
   createMovers () {
@@ -53,6 +51,7 @@ export default class Experiment extends Experiments {
     this.context.fillRect(0, 0, window.innerWidth, window.innerHeight)
 
     this.movers.forEach((mover, index) => {
+      mover.update(this.mouse, this.moversMultiply)
       mover.draw(this.context)
     })
 
@@ -61,10 +60,22 @@ export default class Experiment extends Experiments {
     requestAnimationFrame(this.update.bind(this))
   }
 
-  click () {
-    super.click()
+  dblclick () {
+    super.dblclick()
 
     this.createMovers()
+  }
+
+  mousedown () {
+    super.mousedown()
+
+    this.moversMultiply *= -1
+  }
+
+  mouseup () {
+    super.mouseup()
+
+    this.moversMultiply *= -1
   }
 
   resize () {
