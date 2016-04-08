@@ -43,11 +43,11 @@ export default class Mover {
   draw (context) {
     this.check()
 
-    context.globalAlpha = 0.75
-    context.globalCompositeOperation = 'lighter'
-
     context.lineWidth = 3
     context.strokeStyle = this.stroke
+
+    context.globalAlpha = 0.75
+    context.globalCompositeOperation = 'lighter'
 
     context.beginPath()
     context.arc(this.location.x, this.location.y, this.radius, 0, 2 * Math.PI)
@@ -55,7 +55,7 @@ export default class Mover {
 
     context.stroke()
 
-    context.globalAlpha = 0.3
+    context.globalAlpha = 1
     context.globalCompositeOperation = 'source-over'
   }
 }

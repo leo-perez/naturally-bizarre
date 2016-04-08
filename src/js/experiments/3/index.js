@@ -47,7 +47,7 @@ export default class Experiment extends Experiments {
   update () {
     this.stats.begin()
 
-    this.context.fillStyle = '#000'
+    this.context.fillStyle = 'rgba(0, 0, 0, 0.25)'
     this.context.fillRect(0, 0, window.innerWidth, window.innerHeight)
 
     this.movers.forEach((mover, index) => {

@@ -22,13 +22,12 @@ export default class Walker {
   }
 
   draw (context) {
+    context.lineWidth = 1
+    context.strokeStyle = this.color
     context.globalCompositeOperation = 'lighter'
 
     context.beginPath()
     context.moveTo(this.x, this.y)
-
-    context.strokeStyle = this.color
-    context.lineWidth = 1
 
     this.step()
 
