@@ -26,5 +26,5 @@ request.onreadystatechange = () => {
   }
 }
 
-request.open('GET', `//api.soundcloud.com/resolve.json?url=https://soundcloud.com/sizzlebird/enchanted-2&client_id=78c6552c14b382e23be3bce2fc411a82`, true)
+request.open('GET', `//api.soundcloud.com/resolve.json?url=https://soundcloud.com/uppermost/true&client_id=78c6552c14b382e23be3bce2fc411a82`, true)
 request.send()
