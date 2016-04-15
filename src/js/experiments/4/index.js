@@ -13,7 +13,7 @@ const COLORS = [
 import { randomArbitrary, randomInt } from '../../lib/random'
 
 import Experiments from '../../classes/Experiments'
-// import Mover from './Mover'
+import Mover from './Mover'
 import Vector from '../../classes/Vector'
 
 export default class Experiment extends Experiments {
@@ -21,18 +21,18 @@ export default class Experiment extends Experiments {
     super(TITLE, DESCRIPTION)
 
     this.movers = null
-    this.moversLength = 100
+    this.moversLength = 500
     this.moversColor = null
 
+    this.gravity = new Vector(0, 1)
     this.wind = new Vector(0.1, 0)
-    this.gravity = new Vector(0, 0.1)
 
     this.createMovers()
     this.update()
   }
 
   createMover (index) {
-    const radius = randomArbitrary(1, 5)
+    const radius = randomInt(0, COLORS.length - 1)
     const color = COLORS[this.moversColor][randomInt(0, COLORS.length - 1)]
 
     this.movers.push(new Mover(radius, color))
@@ -54,6 +54,12 @@ export default class Experiment extends Experiments {
     this.context.fillRect(0, 0, window.innerWidth, window.innerHeight)
 
     this.movers.forEach((mover, index) => {
+      const friction = mover.velocity.copy()
+      friction.mult(-1)
+      friction.normalize()
+      friction.mult(0.1)
+
+      mover.apply(friction)
       mover.apply(this.wind)
       mover.apply(this.gravity)
       mover.update()
@@ -79,7 +85,6 @@ export default class Experiment extends Experiments {
     super.mousemove(e)
 
     this.wind.x = (((window.innerWidth / 2) - this.mouse.x) / window.innerWidth) / 10
-    this.gravity.y = (((window.innerHeight / 2) - this.mouse.y) / window.innerHeight) / 10
   }
 
   mouseup () {
