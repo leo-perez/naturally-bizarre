@@ -13,7 +13,7 @@ const COLORS = [
 import { randomArbitrary, randomInt } from '../../lib/random'
 
 import Experiments from '../../classes/Experiments'
-import Mover from './Mover'
+// import Mover from './Mover'
 import Vector from '../../classes/Vector'
 
 export default class Experiment extends Experiments {
