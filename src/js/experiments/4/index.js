@@ -1,7 +1,7 @@
 /* global requestAnimationFrame */
 
-const TITLE = 'Untitled'
-const DESCRIPTION = 'Lorem ipsum dolot sit amet.'
+const TITLE = 'Bounce'
+const DESCRIPTION = 'Gravity applied to 500 circles with random mass.'
 const COLORS = [
   ['#0AD7D7', '#232832', '#FF2D64', '#E6E6E6'],
   ['#FFDC00', '#F5508C', '#9F19A4', '#462D46'],
@@ -10,7 +10,7 @@ const COLORS = [
   ['#3C1E69', '#5A3C87', '#E65A87', '#FAA']
 ]
 
-import { randomArbitrary, randomInt } from '../../lib/random'
+import { randomInt } from '../../lib/random'
 
 import Experiments from '../../classes/Experiments'
 import Mover from './Mover'
@@ -24,8 +24,9 @@ export default class Experiment extends Experiments {
     this.moversLength = 500
     this.moversColor = null
 
-    this.gravity = new Vector(0, 1)
-    this.wind = new Vector(0.1, 0)
+    this.gravity = new Vector(0, 0.5)
+    this.gravitySubtract = null
+    this.wind = new Vector(0, 0)
 
     this.createMovers()
     this.update()
@@ -35,7 +36,7 @@ export default class Experiment extends Experiments {
     const radius = randomInt(0, COLORS.length - 1)
     const color = COLORS[this.moversColor][randomInt(0, COLORS.length - 1)]
 
-    this.movers.push(new Mover(radius, color))
+    this.movers.push(new Mover(color))
   }
 
   createMovers () {
@@ -79,16 +80,20 @@ export default class Experiment extends Experiments {
 
   mousedown () {
     super.mousedown()
+
+    this.gravity.y = -1
   }
 
   mousemove (e) {
     super.mousemove(e)
-
-    this.wind.x = (((window.innerWidth / 2) - this.mouse.x) / window.innerWidth) / 10
   }
 
   mouseup () {
     super.mouseup()
+
+    clearInterval(this.gravitySubtract)
+
+    this.gravity.y = 1
   }
 
   resize () {

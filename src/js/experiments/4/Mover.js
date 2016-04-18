@@ -1,15 +1,15 @@
-import { randomInt } from '../../lib/random'
+import { randomArbitrary, randomInt } from '../../lib/random'
 
 import Vector from '../../classes/Vector'
 
 export default class Mover {
-  constructor (mass, fill) {
-    this.mass = mass
+  constructor (stroke) {
+    this.mass = randomArbitrary(1, 10)
 
-    this.radius = mass * 2
-    this.fill = fill
+    this.radius = randomArbitrary(1, 5)
+    this.stroke = stroke
 
-    this.location = new Vector(randomInt(0, window.innerWidth), 0)
+    this.location = new Vector(randomInt(0, window.innerWidth), randomInt(0, window.innerHeight))
     this.velocity = new Vector(0, 0)
     this.acceleration = new Vector(0, 0)
   }
@@ -38,6 +38,9 @@ export default class Mover {
     if (this.location.y > window.innerHeight) {
       this.location.y = window.innerHeight
       this.velocity.y *= -1
+    } else if (this.location.y < 0) {
+      this.location.y = 0
+      this.velocity.y *= -1
     }
   }
 
@@ -45,7 +48,7 @@ export default class Mover {
     this.check()
 
     context.lineWidth = 3
-    context.fillStyle = this.fill
+    context.strokeStyle = this.stroke
 
     context.globalAlpha = 0.75
     context.globalCompositeOperation = 'lighter'
@@ -54,7 +57,7 @@ export default class Mover {
     context.arc(this.location.x, this.location.y, this.radius, 0, 2 * Math.PI)
     context.closePath()
 
-    context.fill()
+    context.stroke()
 
     context.globalAlpha = 1
     context.globalCompositeOperation = 'source-over'
