@@ -1,6 +1,6 @@
 /* global requestAnimationFrame */
 
-const TITLE = 'Bounce'
+const TITLE = 'Ping Pong'
 const DESCRIPTION = 'Gravity applied to 500 circles with random mass.'
 const COLORS = [
   ['#0AD7D7', '#232832', '#FF2D64', '#E6E6E6'],
