@@ -3,9 +3,9 @@ import { randomInt } from '../../lib/random'
 import Vector from '../../classes/Vector'
 
 export default class Mover {
-  constructor (radius, stroke, location) {
+  constructor (radius, fill, location) {
     this.radius = radius
-    this.stroke = stroke
+    this.fill = fill
 
     this.location = new Vector(randomInt(0, window.innerWidth), randomInt(0, window.innerHeight))
     this.velocity = new Vector(0, 0)
@@ -44,7 +44,7 @@ export default class Mover {
     this.check()
 
     context.lineWidth = 3
-    context.strokeStyle = this.stroke
+    context.fillStyle = this.fill
 
     context.globalAlpha = 0.75
     context.globalCompositeOperation = 'lighter'
@@ -53,7 +53,7 @@ export default class Mover {
     context.arc(this.location.x, this.location.y, this.radius, 0, 2 * Math.PI)
     context.closePath()
 
-    context.stroke()
+    context.fill()
 
     context.globalAlpha = 1
     context.globalCompositeOperation = 'source-over'
