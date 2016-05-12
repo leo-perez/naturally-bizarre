@@ -46,7 +46,6 @@ export default class Mover {
     context.lineWidth = 3
     context.fillStyle = this.fill
 
-    context.globalAlpha = 0.75
     context.globalCompositeOperation = 'lighter'
 
     context.beginPath()
@@ -55,7 +54,6 @@ export default class Mover {
 
     context.fill()
 
-    context.globalAlpha = 1
     context.globalCompositeOperation = 'source-over'
   }
 }

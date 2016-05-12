@@ -1,5 +1,8 @@
 import Stats from 'stats-js'
 import Vector from './Vector'
+import Colors from '../data/colors.json'
+
+console.log(Colors)
 
 export default class Experiments {
   constructor (title, description) {
@@ -9,6 +12,7 @@ export default class Experiments {
 
     this.title = title
     this.description = description
+    this.colors = Colors
 
     this.canvas = null
     this.context = null
