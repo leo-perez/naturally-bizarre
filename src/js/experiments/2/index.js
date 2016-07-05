@@ -1,8 +1,5 @@
 /* global requestAnimationFrame */
 
-const TITLE = 'Neon'
-const DESCRIPTION = 'Normal distribution of 500 circles with linear interpolation in position and radius.'
-
 import { randomInt, randomNormalized } from '../../lib/random'
 
 import Experiments from '../../classes/Experiments'
@@ -10,13 +7,14 @@ import Circle from './Circle'
 
 export default class Experiment extends Experiments {
   constructor () {
-    super(TITLE, DESCRIPTION)
+    super('Neon', 'Normal distribution of 500 circles with linear interpolation in position and radius.')
 
     this.circles = null
     this.circlesLength = 500
     this.circlesColor = null
 
     this.createCircles()
+
     this.update()
   }
 
@@ -26,7 +24,9 @@ export default class Experiment extends Experiments {
     const x = this.mouse.x + (randomNormalized() * 200)
     const y = this.mouse.y + (randomNormalized() * 200)
 
-    this.circles.push(new Circle(radius, stroke, x, y))
+    const circle = new Circle(radius, stroke, x, y)
+
+    this.circles.push(circle)
   }
 
   destroyCircle (index) {
@@ -45,7 +45,8 @@ export default class Experiment extends Experiments {
   update () {
     this.stats.begin()
 
-    this.context.fillStyle = 'rgba(0, 0, 0, 0.1)'
+    this.context.fillStyle = '#000'
+    this.context.globalAlpha = 0.25
     this.context.fillRect(0, 0, window.innerWidth, window.innerHeight)
 
     this.circles.forEach((circle, index) => {

@@ -1,8 +1,5 @@
 /* global requestAnimationFrame */
 
-const TITLE = 'Atom'
-const DESCRIPTION = 'Orbit of 1,000 circles using vectors of velocity and acceleration to define their position.'
-
 import { randomInt } from '../../lib/random'
 
 import Experiments from '../../classes/Experiments'
@@ -10,14 +7,15 @@ import Mover from './Mover'
 
 export default class Experiment extends Experiments {
   constructor () {
-    super(TITLE, DESCRIPTION)
+    super('Atom', 'Orbit of 500 circles using vectors of velocity and acceleration to define their position.')
 
     this.movers = null
-    this.moversLength = 1000
+    this.moversLength = 500
     this.moversColor = null
     this.moversMultiply = 0.75
 
     this.createMovers()
+
     this.update()
   }
 
@@ -25,7 +23,9 @@ export default class Experiment extends Experiments {
     const radius = randomInt(1, 5)
     const color = this.colors[this.moversColor][randomInt(0, this.colors.length - 1)]
 
-    this.movers.push(new Mover(radius, color))
+    const mover = new Mover(radius, color)
+
+    this.movers.push(mover)
   }
 
   createMovers () {
@@ -41,8 +41,8 @@ export default class Experiment extends Experiments {
     this.stats.begin()
 
     this.context.fillStyle = '#000'
-    this.context.fillRect(0, 0, window.innerWidth, window.innerHeight)
     this.context.globalAlpha = 0.75
+    this.context.fillRect(0, 0, window.innerWidth, window.innerHeight)
 
     this.movers.forEach((mover, index) => {
       mover.update(this.mouse, this.moversMultiply)
