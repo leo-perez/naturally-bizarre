@@ -2,8 +2,6 @@ import Stats from 'stats-js'
 import Vector from './Vector'
 import Colors from '../data/colors.json'
 
-console.log(Colors)
-
 export default class Experiments {
   constructor (title, description) {
     this.stats = null
@@ -12,6 +10,7 @@ export default class Experiments {
 
     this.title = title
     this.description = description
+
     this.colors = Colors
 
     this.canvas = null
@@ -20,42 +19,21 @@ export default class Experiments {
     this.center = new Vector(window.innerWidth / 2, window.innerHeight / 2)
     this.mouse = new Vector(window.innerWidth / 2, window.innerHeight / 2)
 
-    this.createWrapper()
+    this.eventDown = this.mousedown.bind(this)
+    this.eventMove = this.mousemove.bind(this)
+    this.eventUp = this.mouseup.bind(this)
+
+    this.eventClick = this.click.bind(this)
+    this.eventClickDouble = this.dblclick.bind(this)
+
+    this.eventResize = this.resize.bind(this)
+
+    this.eventUpdate = this.update.bind(this)
+
     this.createStats()
     this.createCanvas()
     this.createContext()
-
-    this.wrapper.addEventListener('mousedown', (e) => this.mousedown(e))
-    this.wrapper.addEventListener('mousemove', (e) => this.mousemove(e))
-    this.wrapper.addEventListener('mouseup', (e) => this.mouseup(e))
-    this.wrapper.addEventListener('dblclick', () => this.dblclick())
-    this.wrapper.addEventListener('click', () => this.click())
-
-    window.addEventListener('resize', () => this.resize())
-  }
-
-  createWrapper () {
-    const wrapper = document.createElement('div')
-    const wrapperInfo = document.createElement('div')
-    const wrapperTitle = document.createElement('h2')
-    const wrapperDescription = document.createElement('p')
-
-    wrapper.classList.add('experiment')
-    wrapper.appendChild(wrapperInfo)
-
-    wrapperInfo.appendChild(wrapperTitle)
-    wrapperInfo.appendChild(wrapperDescription)
-    wrapperInfo.classList.add('experiment-info')
-
-    wrapperTitle.innerHTML = this.title
-    wrapperTitle.classList.add('experiment-info-title')
-
-    wrapperDescription.innerHTML = this.description
-    wrapperDescription.classList.add('experiment-info-desc')
-
-    document.body.appendChild(wrapper)
-
-    this.wrapper = wrapper
+    this.createEvents()
   }
 
   createStats () {
@@ -68,23 +46,19 @@ export default class Experiments {
     this.stats.domElement.style.zIndex = 50
 
     window.addEventListener('keydown', (e) => {
-      switch (e.keyCode) {
-        case 68:
-          this.stats.domElement.style.display = (this.stats.domElement.style.display === 'block') ? 'none' : 'block'
-          break
+      if (e.keyCode === 68) {
+        this.stats.domElement.style.display = (this.stats.domElement.style.display === 'block') ? 'none' : 'block'
       }
     })
 
-    this.wrapper.appendChild(this.stats.domElement)
+    document.body.appendChild(this.stats.domElement)
   }
 
   createCanvas () {
-    this.canvas = document.createElement('canvas')
+    this.canvas = document.querySelector('.canvas')
 
     this.canvas.height = window.innerHeight
     this.canvas.width = window.innerWidth
-
-    this.wrapper.appendChild(this.canvas)
   }
 
   createContext () {
@@ -92,11 +66,26 @@ export default class Experiments {
     this.context.fillRect(0, 0, window.innerWidth, window.innerHeight)
   }
 
-  dblclick () {
+  createEvents () {
+    this.canvas.addEventListener('mousedown', this.eventDown)
+    this.canvas.addEventListener('mousemove', this.eventMove)
+    this.canvas.addEventListener('mouseup', this.eventUp)
+
+    this.canvas.addEventListener('touchstart', this.eventDown)
+    this.canvas.addEventListener('touchmove', this.eventMove)
+    this.canvas.addEventListener('touchend', this.eventUp)
+
+    this.canvas.addEventListener('click', this.eventClick)
+    this.canvas.addEventListener('dblclick', this.eventClickDouble)
+
+    window.addEventListener('resize', this.eventResize)
+  }
+
+  dblclick (e) {
     this.context.clearRect(0, 0, window.innerWidth, window.innerHeight)
   }
 
-  click () {
+  click (e) {
 
   }
 
@@ -119,17 +108,33 @@ export default class Experiments {
     this.center.set(window.innerWidth / 2, window.innerHeight / 2)
   }
 
-  destroy () {
-    this.context = null
+  update () {
+    requestAnimationFrame(this.eventUpdate)
+  }
 
-    this.canvas.parentNode.removeChild(this.canvas)
-    this.canvas = null
-
+  destroyStats () {
     this.stats.domElement.parentNode.removeChild(this.stats.domElement)
-    this.stats = null
+  }
 
-    this.wrapper.innerHTML = ''
-    this.wrapper.parentNode.removeChild(this.wrapper)
-    this.wrapper = null
+  destroyEvents () {
+    this.canvas.removeEventListener('mousedown', this.eventDown)
+    this.canvas.removeEventListener('mousemove', this.eventMove)
+    this.canvas.removeEventListener('mouseup', this.eventUp)
+
+    this.canvas.removeEventListener('touchstart', this.eventDown)
+    this.canvas.removeEventListener('touchmove', this.eventMove)
+    this.canvas.removeEventListener('touchend', this.eventUp)
+
+    this.canvas.removeEventListener('click', this.eventClick)
+    this.canvas.removeEventListener('dblclick', this.eventClickDouble)
+
+    window.removeEventListener('resize', this.eventResize)
+  }
+
+  destroy () {
+    this.destroyStats()
+    this.destroyEvents()
+
+    cancelAnimationFrame(this.eventUpdate)
   }
 }

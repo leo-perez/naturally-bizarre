@@ -7,7 +7,7 @@ import Walker from './Walker'
 
 export default class Experiment extends Experiments {
   constructor () {
-    super('Root', 'Traditional random walk made by 2,500 walkers spread in the screen.')
+    super('Root')
 
     this.walkers = null
     this.walkersLength = 2500
@@ -40,11 +40,13 @@ export default class Experiment extends Experiments {
   update () {
     this.stats.begin()
 
-    this.walkers.forEach(walker => walker.draw(this.context))
+    if (this.walkers) {
+      this.walkers.forEach(walker => walker.draw(this.context))
+    }
 
     this.stats.end()
 
-    requestAnimationFrame(this.update.bind(this))
+    super.update()
   }
 
   dblclick () {
@@ -57,5 +59,11 @@ export default class Experiment extends Experiments {
     super.resize()
 
     this.createWalkers()
+  }
+
+  destroy () {
+    super.destroy()
+
+    this.walkers = null
   }
 }

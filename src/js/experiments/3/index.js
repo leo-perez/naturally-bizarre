@@ -7,7 +7,7 @@ import Mover from './Mover'
 
 export default class Experiment extends Experiments {
   constructor () {
-    super('Atom', 'Orbit of 500 circles using vectors of velocity and acceleration to define their position.')
+    super('Atom')
 
     this.movers = null
     this.moversLength = 500
@@ -44,14 +44,16 @@ export default class Experiment extends Experiments {
     this.context.globalAlpha = 0.75
     this.context.fillRect(0, 0, window.innerWidth, window.innerHeight)
 
-    this.movers.forEach((mover, index) => {
-      mover.update(this.mouse, this.moversMultiply)
-      mover.draw(this.context)
-    })
+    if (this.movers) {
+      this.movers.forEach((mover, index) => {
+        mover.update(this.mouse, this.moversMultiply)
+        mover.draw(this.context)
+      })
+    }
 
     this.stats.end()
 
-    requestAnimationFrame(this.update.bind(this))
+    super.update()
   }
 
   dblclick () {
@@ -76,5 +78,11 @@ export default class Experiment extends Experiments {
     super.resize()
 
     this.createMovers()
+  }
+
+  destroy () {
+    super.destroy()
+
+    this.movers = null
   }
 }

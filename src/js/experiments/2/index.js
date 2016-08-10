@@ -7,7 +7,7 @@ import Circle from './Circle'
 
 export default class Experiment extends Experiments {
   constructor () {
-    super('Neon', 'Normal distribution of 500 circles with linear interpolation in position and radius.')
+    super('Neon')
 
     this.circles = null
     this.circlesLength = 500
@@ -49,19 +49,21 @@ export default class Experiment extends Experiments {
     this.context.globalAlpha = 0.25
     this.context.fillRect(0, 0, window.innerWidth, window.innerHeight)
 
-    this.circles.forEach((circle, index) => {
-      circle.move(this.mouse.x, this.mouse.y)
-      circle.draw(this.context)
+    if (this.circles) {
+      this.circles.forEach((circle, index) => {
+        circle.move(this.mouse.x, this.mouse.y)
+        circle.draw(this.context)
 
-      if (!circle.alive) {
-        this.destroyCircle(index)
-        this.createCircle()
-      }
-    })
+        if (!circle.alive) {
+          this.destroyCircle(index)
+          this.createCircle()
+        }
+      })
+    }
 
     this.stats.end()
 
-    requestAnimationFrame(this.update.bind(this))
+    super.update()
   }
 
   dblclick () {
@@ -74,5 +76,11 @@ export default class Experiment extends Experiments {
     super.resize()
 
     this.createCircles()
+  }
+
+  destroy () {
+    super.destroy()
+
+    this.circles = null
   }
 }
