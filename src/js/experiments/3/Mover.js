@@ -54,7 +54,5 @@ export default class Mover {
     context.closePath()
 
     context.fill()
-
-    context.globalCompositeOperation = 'source-over'
   }
 }

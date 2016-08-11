@@ -1,6 +1,4 @@
-'use strict'
-
-import { lerp } from '../../lib/lerp'
+import { lerp } from '../../lib/math'
 import { randomArbitrary } from '../../lib/random'
 
 export default class Circle {
@@ -43,10 +41,7 @@ export default class Circle {
     context.arc(this.x, this.y, this.radius, 0, 2 * Math.PI)
     context.closePath()
 
-    context.fill()
+    // context.fill()
     context.stroke()
-
-    context.globalAlpha = 1
-    context.globalCompositeOperation = 'source-over'
   }
 }

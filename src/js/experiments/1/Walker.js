@@ -25,9 +25,6 @@ export default class Walker {
     context.lineWidth = 1
     context.strokeStyle = this.color
 
-    context.globalAlpha = 0.1
-    context.globalCompositeOperation = 'lighter'
-
     context.beginPath()
     context.moveTo(this.x, this.y)
 

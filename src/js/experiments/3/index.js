@@ -1,18 +1,16 @@
-/* global requestAnimationFrame */
-
 import { randomInt } from '../../lib/random'
 
 import Experiments from '../../classes/Experiments'
 import Mover from './Mover'
 
-export default class Experiment extends Experiments {
+export default class Atom extends Experiments {
   constructor () {
     super('Atom')
 
     this.movers = null
-    this.moversLength = 500
+    this.moversLength = null
     this.moversColor = null
-    this.moversMultiply = 0.75
+    this.moversMultiply = null
 
     this.createMovers()
 
@@ -30,7 +28,9 @@ export default class Experiment extends Experiments {
 
   createMovers () {
     this.movers = []
+    this.moversLength = 500
     this.moversColor = randomInt(0, this.colors.length - 1)
+    this.moversMultiply = 0.75
 
     for (let i = 0, length = this.moversLength; i <= length; i++) {
       this.createMover(i)
@@ -38,22 +38,21 @@ export default class Experiment extends Experiments {
   }
 
   update () {
+    super.update()
+
     this.stats.begin()
 
     this.context.fillStyle = '#000'
-    this.context.globalAlpha = 0.75
+    this.context.globalAlpha = 0.5
+    this.context.globalCompositeOperation = 'source-over'
     this.context.fillRect(0, 0, window.innerWidth, window.innerHeight)
 
-    if (this.movers) {
-      this.movers.forEach((mover, index) => {
-        mover.update(this.mouse, this.moversMultiply)
-        mover.draw(this.context)
-      })
-    }
+    this.movers.forEach((mover, index) => {
+      mover.update(this.mouse, this.moversMultiply)
+      mover.draw(this.context)
+    })
 
     this.stats.end()
-
-    super.update()
   }
 
   dblclick () {
@@ -78,11 +77,5 @@ export default class Experiment extends Experiments {
     super.resize()
 
     this.createMovers()
-  }
-
-  destroy () {
-    super.destroy()
-
-    this.movers = null
   }
 }

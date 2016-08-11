@@ -3,7 +3,7 @@ html
   head
     title Naturally Bizarre
 
-    meta(name='description' content='Experiments made by Luis Henrique Bizarro based on the book The Nature of Code.')
+    meta(name='description' content='Experiments made by Luis Henrique Bizarro based on the series The Nature of Code by Daniel Shiffman.')
 
     meta(charset='UTF-8')
 
@@ -19,27 +19,25 @@ html
     meta(property='og:url' content='http://lhbzr.com/naturally-bizarre/')
     meta(property='og:title' content='Naturally Bizarre')
     meta(property='og:image' content='share.jpg')
-    meta(property='og:description' content='Experiments made by Luis Henrique Bizarro based on the book The Nature of Code.')
+    meta(property='og:description' content='Experiments made by Luis Henrique Bizarro based on the series The Nature of Code by Daniel Shiffman.')
 
     meta(name='twitter:card' content='summary_large_image')
     meta(name='twitter:site' content='@lhbzr')
     meta(name='twitter:title' content='Naturally Bizarre')
-    meta(name='twitter:description' content='Experiments made by Luis Henrique Bizarro based on the book The Nature of Code.')
+    meta(name='twitter:description' content='Experiments made by Luis Henrique Bizarro based on the series The Nature of Code by Daniel Shiffman.')
     meta(name='twitter:image:src' content='share.jpg')
 
   body
     ul.menu
       li.menu-item
-        a.menu-link.js-experiment-toggle(href='#1')
+        a.menu-link.js-experiment-toggle(href='#root')
           span.menu-link-text Root
       li.menu-item
-        a.menu-link.js-experiment-toggle(href='#2')
+        a.menu-link.js-experiment-toggle(href='#neon')
           span.menu-link-text Neon
       li.menu-item
-        a.menu-link.js-experiment-toggle(href='#3')
+        a.menu-link.js-experiment-toggle(href='#atom')
           span.menu-link-text Atom
-
-    canvas.canvas
 
     script(src='dist/js/main.js')
     script.

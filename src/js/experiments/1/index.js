@@ -1,16 +1,14 @@
-/* global requestAnimationFrame */
-
 import { randomInt } from '../../lib/random'
 
 import Experiments from '../../classes/Experiments'
 import Walker from './Walker'
 
-export default class Experiment extends Experiments {
+export default class Root extends Experiments {
   constructor () {
     super('Root')
 
     this.walkers = null
-    this.walkersLength = 2500
+    this.walkersLength = null
     this.walkersColor = null
 
     this.createWalkers()
@@ -30,6 +28,7 @@ export default class Experiment extends Experiments {
 
   createWalkers () {
     this.walkers = []
+    this.walkersLength = 2500
     this.walkersColor = randomInt(0, this.colors.length - 1)
 
     for (let i = 0, length = this.walkersLength; i <= length; i++) {
@@ -38,15 +37,16 @@ export default class Experiment extends Experiments {
   }
 
   update () {
+    super.update()
+
     this.stats.begin()
 
-    if (this.walkers) {
-      this.walkers.forEach(walker => walker.draw(this.context))
-    }
+    this.context.globalAlpha = 0.1
+    this.context.globalCompositeOperation = 'lighter'
+
+    this.walkers.forEach(walker => walker.draw(this.context))
 
     this.stats.end()
-
-    super.update()
   }
 
   dblclick () {
@@ -59,11 +59,5 @@ export default class Experiment extends Experiments {
     super.resize()
 
     this.createWalkers()
-  }
-
-  destroy () {
-    super.destroy()
-
-    this.walkers = null
   }
 }

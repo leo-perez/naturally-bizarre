@@ -1,16 +1,14 @@
-/* global requestAnimationFrame */
-
 import { randomInt, randomNormalized } from '../../lib/random'
 
 import Experiments from '../../classes/Experiments'
 import Circle from './Circle'
 
-export default class Experiment extends Experiments {
+export default class Neon extends Experiments {
   constructor () {
     super('Neon')
 
     this.circles = null
-    this.circlesLength = 500
+    this.circlesLength = null
     this.circlesColor = null
 
     this.createCircles()
@@ -35,6 +33,7 @@ export default class Experiment extends Experiments {
 
   createCircles () {
     this.circles = []
+    this.circlesLength = 500
     this.circlesColor = randomInt(0, this.colors.length - 1)
 
     for (let i = 0, length = this.circlesLength; i <= length; i++) {
@@ -43,27 +42,26 @@ export default class Experiment extends Experiments {
   }
 
   update () {
+    super.update()
+
     this.stats.begin()
 
     this.context.fillStyle = '#000'
-    this.context.globalAlpha = 0.25
+    this.context.globalAlpha = 0.1
+    this.context.globalCompositeOperation = 'source-over'
     this.context.fillRect(0, 0, window.innerWidth, window.innerHeight)
 
-    if (this.circles) {
-      this.circles.forEach((circle, index) => {
-        circle.move(this.mouse.x, this.mouse.y)
-        circle.draw(this.context)
+    this.circles.forEach((circle, index) => {
+      circle.move(this.mouse.x, this.mouse.y)
+      circle.draw(this.context)
 
-        if (!circle.alive) {
-          this.destroyCircle(index)
-          this.createCircle()
-        }
-      })
-    }
+      if (!circle.alive) {
+        this.destroyCircle(index)
+        this.createCircle()
+      }
+    })
 
     this.stats.end()
-
-    super.update()
   }
 
   dblclick () {
@@ -76,11 +74,5 @@ export default class Experiment extends Experiments {
     super.resize()
 
     this.createCircles()
-  }
-
-  destroy () {
-    super.destroy()
-
-    this.circles = null
   }
 }

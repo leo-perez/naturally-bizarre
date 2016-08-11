@@ -1,15 +1,14 @@
+import Colors from '../data/colors.json'
 import Stats from 'stats-js'
 import Vector from './Vector'
-import Colors from '../data/colors.json'
 
 export default class Experiments {
-  constructor (title, description) {
+  constructor (title) {
     this.stats = null
 
     this.wrapper = null
 
     this.title = title
-    this.description = description
 
     this.colors = Colors
 
@@ -29,6 +28,8 @@ export default class Experiments {
     this.eventResize = this.resize.bind(this)
 
     this.eventUpdate = this.update.bind(this)
+
+    this.animationFrame = null
 
     this.createStats()
     this.createCanvas()
@@ -55,15 +56,17 @@ export default class Experiments {
   }
 
   createCanvas () {
-    this.canvas = document.querySelector('.canvas')
+    this.canvas = document.createElement('canvas')
+    this.canvas.classList.add('canvas')
 
     this.canvas.height = window.innerHeight
     this.canvas.width = window.innerWidth
+
+    document.body.appendChild(this.canvas)
   }
 
   createContext () {
     this.context = this.canvas.getContext('2d')
-    this.context.fillRect(0, 0, window.innerWidth, window.innerHeight)
   }
 
   createEvents () {
@@ -81,12 +84,12 @@ export default class Experiments {
     window.addEventListener('resize', this.eventResize)
   }
 
-  dblclick (e) {
-    this.context.clearRect(0, 0, window.innerWidth, window.innerHeight)
-  }
-
   click (e) {
 
+  }
+
+  dblclick (e) {
+    this.context.clearRect(0, 0, window.innerWidth, window.innerHeight)
   }
 
   mousedown (e) {
@@ -94,7 +97,11 @@ export default class Experiments {
   }
 
   mousemove (e) {
-    this.mouse.set(e.pageX, e.pageY)
+    if (e.touches) {
+      this.mouse.set(e.touches[0].pageX, e.touches[0].pageY)
+    } else {
+      this.mouse.set(e.pageX, e.pageY)
+    }
   }
 
   mouseup (e) {
@@ -109,11 +116,19 @@ export default class Experiments {
   }
 
   update () {
-    requestAnimationFrame(this.eventUpdate)
+    this.animationFrame = window.requestAnimationFrame(this.update.bind(this))
   }
 
   destroyStats () {
     this.stats.domElement.parentNode.removeChild(this.stats.domElement)
+  }
+
+  destroyCanvas () {
+    this.canvas.parentNode.removeChild(this.canvas)
+  }
+
+  destroyContext () {
+    this.context = null
   }
 
   destroyEvents () {
@@ -132,9 +147,11 @@ export default class Experiments {
   }
 
   destroy () {
-    this.destroyStats()
-    this.destroyEvents()
+    window.cancelAnimationFrame(this.animationFrame)
 
-    cancelAnimationFrame(this.eventUpdate)
+    this.destroyEvents()
+    this.destroyCanvas()
+    this.destroyContext()
+    this.destroyStats()
   }
 }
