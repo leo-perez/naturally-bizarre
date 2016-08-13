@@ -1,19 +1,39 @@
-import { randomArbitrary } from '../../lib/random'
-
 import Vector from '../../classes/Vector'
 
-export default class Mover {
-  constructor (x, y, radius, color) {
-    this.radius = radius
-
+export default class Particle {
+  constructor (x, y, color, radius, speed, force) {
     this.color = color
 
     this.position = new Vector(x, y)
-    this.velocity = new Vector(0, 0)
     this.acceleration = new Vector(0, 0)
-    this.direction = new Vector(0, 0)
+    this.velocity = new Vector(0, 0)
 
-    this.multiplier = randomArbitrary(0.5, 1)
+    this.radius = radius
+    this.speed = speed
+    this.force = force
+  }
+
+  follow (flow) {
+    const desired = flow.lookup(this.position)
+    desired.mult(this.speed)
+
+    const steer = Vector.sub(desired, this.velocity)
+    steer.limit(this.force)
+
+    this.apply(steer)
+  }
+
+  apply (force) {
+    this.acceleration.add(force)
+  }
+
+  update () {
+    this.velocity.add(this.acceleration)
+    this.velocity.limit(this.speed)
+
+    this.position.add(this.velocity)
+
+    this.acceleration.mult(0)
   }
 
   check () {
@@ -30,24 +50,8 @@ export default class Mover {
     }
   }
 
-  update (mouse, multiplier) {
-    this.direction = Vector.sub(mouse, this.position)
-    this.direction.normalize()
-    this.direction.mult(this.multiplier)
-    this.direction.mult(multiplier)
-
-    this.acceleration = this.direction
-
-    this.velocity.add(this.acceleration)
-    this.velocity.limit(15)
-
-    this.position.add(this.velocity)
-  }
-
   draw (context) {
-    this.check()
-
-    context.fillStyle = this.color
+    context.lineWidth = 2
 
     context.globalAlpha = 1
     context.globalCompositeOperation = 'lighter'
@@ -56,6 +60,7 @@ export default class Mover {
     context.arc(this.position.x, this.position.y, this.radius, 0, 2 * Math.PI)
     context.closePath()
 
-    context.fill()
+    context.strokeStyle = this.color
+    context.stroke()
   }
 }

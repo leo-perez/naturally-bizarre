@@ -17,12 +17,12 @@ export default class Neon extends Experiments {
   }
 
   createCircle () {
-    const radius = 10 + Math.abs(randomNormalized() * 10)
-    const stroke = this.colors[this.circlesColor][randomInt(0, this.colors.length - 1)]
     const x = this.mouse.x + (randomNormalized() * 200)
     const y = this.mouse.y + (randomNormalized() * 200)
+    const radius = 10 + Math.abs(randomNormalized() * 10)
+    const color = this.colors[this.circlesColor][randomInt(0, this.colors.length - 1)]
 
-    const circle = new Circle(radius, stroke, x, y)
+    const circle = new Circle(x, y, radius, color)
 
     this.circles.push(circle)
   }
@@ -36,7 +36,7 @@ export default class Neon extends Experiments {
     this.circlesLength = 500
     this.circlesColor = randomInt(0, this.colors.length - 1)
 
-    for (let i = 0, length = this.circlesLength; i <= length; i++) {
+    for (let i = 0; i <= this.circlesLength; i++) {
       this.createCircle()
     }
   }
@@ -46,9 +46,10 @@ export default class Neon extends Experiments {
 
     this.stats.begin()
 
-    this.context.fillStyle = '#000'
-    this.context.globalAlpha = 0.1
+    this.context.globalAlpha = 0.5
     this.context.globalCompositeOperation = 'source-over'
+
+    this.context.fillStyle = '#000'
     this.context.fillRect(0, 0, window.innerWidth, window.innerHeight)
 
     this.circles.forEach((circle, index) => {

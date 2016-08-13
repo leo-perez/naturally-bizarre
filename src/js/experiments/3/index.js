@@ -17,11 +17,13 @@ export default class Atom extends Experiments {
     this.update()
   }
 
-  createMover (index) {
+  createMover () {
+    const x = randomInt(0, window.innerWidth)
+    const y = randomInt(0, window.innerHeight)
     const radius = randomInt(1, 5)
     const color = this.colors[this.moversColor][randomInt(0, this.colors.length - 1)]
 
-    const mover = new Mover(radius, color)
+    const mover = new Mover(x, y, radius, color)
 
     this.movers.push(mover)
   }
@@ -30,10 +32,10 @@ export default class Atom extends Experiments {
     this.movers = []
     this.moversLength = 500
     this.moversColor = randomInt(0, this.colors.length - 1)
-    this.moversMultiply = 0.75
+    this.moversMultiply = 1
 
-    for (let i = 0, length = this.moversLength; i <= length; i++) {
-      this.createMover(i)
+    for (let i = 0; i <= this.moversLength; i++) {
+      this.createMover()
     }
   }
 
@@ -42,9 +44,10 @@ export default class Atom extends Experiments {
 
     this.stats.begin()
 
-    this.context.fillStyle = '#000'
-    this.context.globalAlpha = 0.5
+    this.context.globalAlpha = 1
     this.context.globalCompositeOperation = 'source-over'
+
+    this.context.fillStyle = '#000'
     this.context.fillRect(0, 0, window.innerWidth, window.innerHeight)
 
     this.movers.forEach((mover, index) => {

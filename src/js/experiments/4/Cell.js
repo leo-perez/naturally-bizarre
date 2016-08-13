@@ -23,6 +23,7 @@ export default class Cell {
     context.lineTo(this.positionStart.x + this.positionEnd.x, this.positionStart.y + this.positionEnd.y)
     context.closePath()
 
+    context.strokeStyle = '#fff'
     context.stroke()
 
     context.globalAlpha = 1

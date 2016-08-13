@@ -13,8 +13,7 @@ const experiments = {
 }
 
 const experimentsNames = Object.getOwnPropertyNames(experiments)
-const experimentsSelected = (location.hash) ? location.hash.replace('#', '') : experimentsNames[0]
-const experimentsLinks = document.querySelectorAll('.js-experiment-toggle')
+const experimentsSelected = (window.location.hash) ? window.location.hash.replace('#', '') : experimentsNames[0]
 
 let experimentsActive
 
@@ -25,11 +24,11 @@ if (experiments[experimentsSelected]) {
 }
 
 window.addEventListener('hashchange', function (e) {
-  const hash = location.hash.replace('#', '')
+  const hash = window.location.hash.replace('#', '')
 
-  if (experimentsNames.indexOf(hash)) {
+  if (experimentsNames.indexOf(hash) > -1) {
     experimentsActive.destroy()
 
-    experimentsActive = new experiments[experimentsNames[hash]]()
+    experimentsActive = new experiments[hash]()
   }
 })

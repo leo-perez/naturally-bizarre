@@ -31,7 +31,7 @@ export default class Root extends Experiments {
     this.walkersLength = 2500
     this.walkersColor = randomInt(0, this.colors.length - 1)
 
-    for (let i = 0, length = this.walkersLength; i <= length; i++) {
+    for (let i = 0; i <= this.walkersLength; i++) {
       this.createWalker()
     }
   }

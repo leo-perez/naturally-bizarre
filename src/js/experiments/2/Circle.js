@@ -1,12 +1,11 @@
-import { lerp } from '../../lib/math'
+import { constrain, lerp } from '../../lib/math'
 import { randomArbitrary } from '../../lib/random'
 
 export default class Circle {
-  constructor (radius, stroke, x, y) {
+  constructor (x, y, radius, color) {
     this.radius = radius
 
-    this.fill = '#000'
-    this.stroke = stroke
+    this.color = color
 
     this.x = x
     this.y = y
@@ -17,9 +16,7 @@ export default class Circle {
   }
 
   move (x, y) {
-    if (this.opacity < 1) {
-      this.opacity = this.opacity + 0.1
-    }
+    this.opacity = constrain(this.opacity + 0.1, 0, 1)
 
     this.radius = lerp(this.radius, 0, this.lerp)
 
@@ -31,8 +28,6 @@ export default class Circle {
 
   draw (context) {
     context.lineWidth = 2
-    context.fillStyle = this.fill
-    context.strokeStyle = this.stroke
 
     context.globalAlpha = this.opacity
     context.globalCompositeOperation = 'lighter'
@@ -41,7 +36,7 @@ export default class Circle {
     context.arc(this.x, this.y, this.radius, 0, 2 * Math.PI)
     context.closePath()
 
-    // context.fill()
+    context.strokeStyle = this.color
     context.stroke()
   }
 }
