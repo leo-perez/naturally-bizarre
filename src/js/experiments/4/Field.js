@@ -25,7 +25,7 @@ export default class Field {
   create () {
     for (let i = 0, x = 0; i < this.columns; i++) {
       for (let j = 0, y = 0; j < this.rows; j++) {
-        const angle = map(noise(x, y, this.noise), 0, 1, 0, Math.PI * 4)
+        const angle = map(noise(x, y, this.noise), 0, 1, 0, Math.PI * 2)
 
         // this.cell[i][j] = new Cell(i, j, angle)
         this.field[i][j] = new Vector(Math.cos(angle), Math.sin(angle))
@@ -40,7 +40,7 @@ export default class Field {
   update () {
     for (let i = 0, x = 0; i < this.columns; i++) {
       for (let j = 0, y = 0; j < this.rows; j++) {
-        const angle = map(noise(x, y, this.noise), 0, 1, 0, Math.PI * 4)
+        const angle = map(noise(x, y, this.noise), 0, 1, 0, Math.PI * 2)
 
         // this.cell[i][j].update(angle)
         this.field[i][j].set(Math.cos(angle), Math.sin(angle))

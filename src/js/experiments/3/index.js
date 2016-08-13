@@ -44,7 +44,7 @@ export default class Atom extends Experiments {
 
     this.stats.begin()
 
-    this.context.globalAlpha = 1
+    this.context.globalAlpha = 0.5
     this.context.globalCompositeOperation = 'source-over'
 
     this.context.fillStyle = '#000'

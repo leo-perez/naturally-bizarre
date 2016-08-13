@@ -47,8 +47,6 @@ export default class Mover {
   draw (context) {
     this.check()
 
-    context.fillStyle = this.color
-
     context.globalAlpha = 1
     context.globalCompositeOperation = 'lighter'
 
@@ -56,6 +54,7 @@ export default class Mover {
     context.arc(this.position.x, this.position.y, this.radius, 0, 2 * Math.PI)
     context.closePath()
 
-    context.fill()
+    context.strokeStyle = this.color
+    context.stroke()
   }
 }
