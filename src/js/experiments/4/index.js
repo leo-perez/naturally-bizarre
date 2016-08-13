@@ -12,20 +12,15 @@ export default class Flow extends Experiments {
 
     this.createField()
 
+    this.context.strokeStyle = '#fff'
+    this.context.fillStyle = '#000'
+
     this.update()
   }
 
   createField () {
-    this.field = new Field(this.context, 50)
-    this.field.draw()
-  }
-
-  createMover () {
-
-  }
-
-  createMovers () {
-
+    this.field = new Field()
+    this.field.draw(this.context)
   }
 
   update () {
@@ -33,13 +28,10 @@ export default class Flow extends Experiments {
 
     this.stats.begin()
 
-    // this.context.fillStyle = '#000'
-    // this.context.globalAlpha = 0.5
-    // this.context.globalCompositeOperation = 'source-over'
-    // this.context.fillRect(0, 0, window.innerWidth, window.innerHeight)
+    this.context.fillRect(0, 0, window.innerWidth, window.innerHeight)
 
-    // this.field.update()
-    // this.field.draw()
+    this.field.update()
+    this.field.draw(this.context)
 
     this.stats.end()
   }

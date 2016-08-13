@@ -24,10 +24,12 @@ if (experiments[experimentsSelected]) {
   experimentsActive = new experiments['root']()
 }
 
-Array.from(experimentsLinks).forEach((link, index) => {
-  link.addEventListener('click', () => {
+window.addEventListener('hashchange', function (e) {
+  const hash = location.hash.replace('#', '')
+
+  if (experimentsNames.indexOf(hash)) {
     experimentsActive.destroy()
-    experimentsActive = null
-    experimentsActive = new experiments[experimentsNames[index]]()
-  })
+
+    experimentsActive = new experiments[experimentsNames[hash]]()
+  }
 })
