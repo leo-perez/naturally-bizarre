@@ -46,12 +46,6 @@ export default class Neon extends Experiments {
 
     this.stats.begin()
 
-    this.context.globalAlpha = 0.5
-    this.context.globalCompositeOperation = 'source-over'
-
-    this.context.fillStyle = '#000'
-    this.context.fillRect(0, 0, window.innerWidth, window.innerHeight)
-
     this.circles.forEach((circle, index) => {
       circle.move(this.mouse.x, this.mouse.y)
       circle.draw(this.context)
@@ -61,6 +55,12 @@ export default class Neon extends Experiments {
         this.createCircle()
       }
     })
+
+    this.context.globalAlpha = 1
+    this.context.globalCompositeOperation = 'source-over'
+
+    this.context.fillStyle = 'rgba(0, 0, 0, 0.1)'
+    this.context.fillRect(0, 0, window.innerWidth, window.innerHeight)
 
     this.stats.end()
   }

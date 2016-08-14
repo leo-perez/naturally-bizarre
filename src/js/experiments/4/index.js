@@ -40,7 +40,7 @@ export default class Flow extends Experiments {
 
   createParticles () {
     this.particles = []
-    this.particlesLength = 500
+    this.particlesLength = 1000
     this.particlesColor = randomInt(0, this.colors.length - 1)
 
     for (let i = 0; i <= this.particlesLength; i++) {
@@ -53,14 +53,7 @@ export default class Flow extends Experiments {
 
     this.stats.begin()
 
-    this.context.globalAlpha = 0.5
-    this.context.globalCompositeOperation = 'source-over'
-
-    this.context.fillStyle = '#000'
-    this.context.fillRect(0, 0, window.innerWidth, window.innerHeight)
-
     this.field.update()
-    // this.field.draw(this.context)
 
     this.particles.forEach((particle, index) => {
       particle.follow(this.field)
@@ -68,6 +61,11 @@ export default class Flow extends Experiments {
       particle.check()
       particle.draw(this.context)
     })
+
+    this.context.globalCompositeOperation = 'source-over'
+
+    this.context.fillStyle = 'rgba(0, 0, 0, 0.1)'
+    this.context.fillRect(0, 0, window.innerWidth, window.innerHeight)
 
     this.stats.end()
   }

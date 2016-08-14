@@ -30,7 +30,7 @@ export default class Atom extends Experiments {
 
   createMovers () {
     this.movers = []
-    this.moversLength = 500
+    this.moversLength = 250
     this.moversColor = randomInt(0, this.colors.length - 1)
     this.moversMultiply = 1
 
@@ -44,16 +44,15 @@ export default class Atom extends Experiments {
 
     this.stats.begin()
 
-    this.context.globalAlpha = 0.5
-    this.context.globalCompositeOperation = 'source-over'
-
-    this.context.fillStyle = '#000'
-    this.context.fillRect(0, 0, window.innerWidth, window.innerHeight)
-
     this.movers.forEach((mover, index) => {
       mover.update(this.mouse, this.moversMultiply)
       mover.draw(this.context)
     })
+
+    this.context.globalCompositeOperation = 'source-over'
+
+    this.context.fillStyle = 'rgba(0, 0, 0, 0.25)'
+    this.context.fillRect(0, 0, window.innerWidth, window.innerHeight)
 
     this.stats.end()
   }

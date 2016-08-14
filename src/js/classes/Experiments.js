@@ -67,6 +67,9 @@ export default class Experiments {
 
   createContext () {
     this.context = this.canvas.getContext('2d')
+
+    this.context.fillStyle = '#050505'
+    this.context.fillRect(0, 0, window.innerWidth, window.innerHeight)
   }
 
   createEvents () {
@@ -89,7 +92,11 @@ export default class Experiments {
   }
 
   dblclick (e) {
-    this.context.clearRect(0, 0, window.innerWidth, window.innerHeight)
+    this.context.globalAlpha = 1
+    this.context.globalCompositeOperation = 'source-over'
+
+    this.context.fillStyle = '#050505'
+    this.context.fillRect(0, 0, window.innerWidth, window.innerHeight)
   }
 
   mousedown (e) {

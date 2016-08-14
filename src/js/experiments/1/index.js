@@ -41,10 +41,10 @@ export default class Root extends Experiments {
 
     this.stats.begin()
 
+    this.walkers.forEach(walker => walker.draw(this.context))
+
     this.context.globalAlpha = 0.1
     this.context.globalCompositeOperation = 'lighter'
-
-    this.walkers.forEach(walker => walker.draw(this.context))
 
     this.stats.end()
   }
