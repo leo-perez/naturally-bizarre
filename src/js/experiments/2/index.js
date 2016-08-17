@@ -5,7 +5,7 @@ import Circle from './Circle'
 
 export default class Neon extends Experiments {
   constructor () {
-    super('Neon')
+    super()
 
     this.circles = null
     this.circlesLength = null

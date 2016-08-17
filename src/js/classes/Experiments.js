@@ -3,15 +3,10 @@ import Stats from 'stats-js'
 import Vector from './Vector'
 
 export default class Experiments {
-  constructor (title) {
-    this.stats = null
-
-    this.wrapper = null
-
-    this.title = title
-
+  constructor () {
     this.colors = Colors
 
+    this.stats = null
     this.canvas = null
     this.context = null
 

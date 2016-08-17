@@ -6,7 +6,7 @@ import Particle from './Particle'
 
 export default class Flow extends Experiments {
   constructor () {
-    super('Flow')
+    super()
 
     this.field = null
 

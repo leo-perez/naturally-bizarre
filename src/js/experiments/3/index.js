@@ -5,7 +5,7 @@ import Mover from './Mover'
 
 export default class Atom extends Experiments {
   constructor () {
-    super('Atom')
+    super()
 
     this.movers = null
     this.moversLength = null

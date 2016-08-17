@@ -5,7 +5,7 @@ import Walker from './Walker'
 
 export default class Root extends Experiments {
   constructor () {
-    super('Root')
+    super()
 
     this.walkers = null
     this.walkersLength = null
