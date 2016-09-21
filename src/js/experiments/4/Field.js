@@ -13,9 +13,13 @@ export default class Field {
     this.columns = Math.ceil(window.innerWidth / this.resolution)
     this.rows = Math.ceil(window.innerHeight / this.resolution)
 
-    // this.cell = Array(this.columns).fill().map(() => [])
+    this.field = []
 
-    this.field = Array(this.columns).fill().map(() => [])
+    for (let i = this.columns; i >= 0; i--) {
+      this.field.push([])
+    }
+
+    console.log(this.field)
 
     this.noise = 0
 

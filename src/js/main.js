@@ -2,14 +2,12 @@ import Root from './experiments/1/index'
 import Neon from './experiments/2/index'
 import Atom from './experiments/3/index'
 import Flow from './experiments/4/index'
-import Away from './experiments/5/index'
 
 const experiments = {
   'root': Root,
   'neon': Neon,
   'atom': Atom,
-  'flow': Flow,
-  'away': Away
+  'flow': Flow
 }
 
 const experimentsNames = Object.getOwnPropertyNames(experiments)
