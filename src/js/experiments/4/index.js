@@ -62,6 +62,7 @@ export default class Flow extends Experiments {
       particle.draw(this.context)
     })
 
+    this.context.globalAlpha = 1
     this.context.globalCompositeOperation = 'source-over'
 
     this.context.fillStyle = 'rgba(0, 0, 0, 0.1)'

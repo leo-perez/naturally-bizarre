@@ -1,15 +1,15 @@
-import 'babel-polyfill'
-
 import Root from './experiments/1/index'
 import Neon from './experiments/2/index'
 import Atom from './experiments/3/index'
 import Flow from './experiments/4/index'
+import Away from './experiments/5/index'
 
 const experiments = {
   'root': Root,
   'neon': Neon,
   'atom': Atom,
-  'flow': Flow
+  'flow': Flow,
+  'away': Away
 }
 
 const experimentsNames = Object.getOwnPropertyNames(experiments)

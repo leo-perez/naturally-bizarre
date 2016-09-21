@@ -15,9 +15,11 @@ export default class Particle {
 
   follow (flow) {
     const desired = flow.lookup(this.position)
+
     desired.mult(this.speed)
 
     const steer = Vector.sub(desired, this.velocity)
+
     steer.limit(this.force)
 
     this.apply(steer)

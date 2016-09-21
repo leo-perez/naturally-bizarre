@@ -49,9 +49,10 @@ export default class Atom extends Experiments {
       mover.draw(this.context)
     })
 
+    this.context.globalAlpha = 1
     this.context.globalCompositeOperation = 'source-over'
 
-    this.context.fillStyle = 'rgba(0, 0, 0, 0.25)'
+    this.context.fillStyle = 'rgba(0, 0, 0, 0.1)'
     this.context.fillRect(0, 0, window.innerWidth, window.innerHeight)
 
     this.stats.end()
